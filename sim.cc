@@ -9,9 +9,12 @@
 #include "construction.hh"
 #include "physics.hh"
 #include "action.hh"
+#include "generator.hh"
 
 #include "G4PhysListFactory.hh"
 #include "G4VModularPhysicsList.hh"
+#include "Randomize.hh"
+
 
 int main(int argc, char** argv) {
 
@@ -19,6 +22,8 @@ int main(int argc, char** argv) {
     runManager->SetUserInitialization(new MyDetectorConstruction());
     
 
+    G4Random::setTheEngine(new CLHEP::RanecuEngine);
+ 
 
     G4PhysListFactory physListFactory;
     G4String plName = "FTFP_BERT";
@@ -33,6 +38,13 @@ int main(int argc, char** argv) {
 
     G4VisManager *visManager = new G4VisExecutive;
     visManager->Initialize();
+
+
+   
+
+    //G4int numberOfEvents = 3;  
+    //runManager->BeamOn(numberOfEvents);
+
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
