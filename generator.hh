@@ -1,6 +1,13 @@
 #ifndef GENERATOR_HH
 #define GENERATOR_HH
 
+
+
+
+#include "G4RunManager.hh"
+#include "Randomize.hh"
+
+
 #include "G4Event.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4ParticleGun.hh"
@@ -21,10 +28,13 @@ public:
     ~MyPrimaryGenerator();
 
 
-    virtual void GeneratePrimaries(G4Event *anEvent);
+    virtual void GeneratePrimaries(G4Event*);
+
+
+    const G4ParticleGun* GetParticleGun() const { return fParticleGun; }
 
 private:
-    G4ParticleGun *fParticleGun;
+    G4ParticleGun *fParticleGun = nullptr;
 
 };
 #endif
