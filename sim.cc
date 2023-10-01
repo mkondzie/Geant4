@@ -14,7 +14,7 @@
 #include "G4PhysListFactory.hh"
 #include "G4VModularPhysicsList.hh"
 #include "Randomize.hh"
-
+#include "G4String.hh"
 
 int main(int argc, char** argv) {
 

@@ -16,6 +16,8 @@ public:
 
     virtual G4VPhysicalVolume *Construct();
 
+private:
+    G4LogicalVolume* logicDet;
 
 };
 #endif
