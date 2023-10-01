@@ -1,27 +1,10 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-
-project(Simulation)
-
+project(Exercise)
 find_package(Geant4 REQUIRED ui_all vis_all)
-
 include(${Geant4_USE_FILE})
-
-file(GLOB sources ${PROJECT_SOURCE_DIR}/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/*.hh)
-
-add_executable(sim sim.cc ${sources} ${headers})
-target_link_libraries(sim ${Geant4_LIBRARIES})
-
-set(SIMULATION_SCRIPTS
-  run1.mac
-  )
-
-foreach(_script ${SIMULATION_SCRIPTS})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/${_script}
-    ${PROJECT_BINARY_DIR}/${_script}
-    COPYONLY
-    )
-endforeach()
-
-add_custom_target(Simulation DEPENDS sim)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
+file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.h)
+add_executable(example_exercise src/example_exercise.cc ${sources} ${headers})
+target_link_libraries(example_exercise ${Geant4_LIBRARIES})
+add_custom_target(Exercise DEPENDS example_exercise)
