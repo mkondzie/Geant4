@@ -37,13 +37,13 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   
   
 
-  G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 0.7 * m);
-  G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat,"logicWorld");  
+  G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 0.8 * m);
+  G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, copperMat,"logicWorld");
   G4VPhysicalVolume *physWorld = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicWorld, "physWorld", 0, false, 0, true);
 
 
   G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, 19.5 * cm, 0, 360 * deg);
-  G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, copperMat, "solidCylinder");
+  G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, worldMat, "solidCylinder");
   G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, G4ThreeVector(0., 0., 10. * cm), logicCylinder, "physCylinder", logicWorld, false, 0, true);
 
 

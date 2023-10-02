@@ -3,6 +3,8 @@
 
 #include "G4UserSteppingAction.hh"
 #include "G4Step.hh"
+#include "G4VProcess.hh"
+#include "G4StepPoint.hh"
 #include "MyDetectorConstruction.h"
 #include "MyEventAction.h"
 
