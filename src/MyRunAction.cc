@@ -31,10 +31,13 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 		man->CreateNtupleIColumn("fEvent");
 		man->CreateNtupleDColumn("fX"); //XY position
 		man->CreateNtupleDColumn("fY"); //Z fixed to 60.*m
-		man->CreateNtupleDColumn("fEdep");
+		man->CreateNtupleDColumn("fZ");
 		man->FinishNtuple(0);
 
 
+		man->CreateNtuple("Scoring", "Scoring");
+		man->CreateNtupleDColumn("fEdep");
+		man->FinishNtuple(1);
 
 }
 
