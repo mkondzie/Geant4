@@ -2,6 +2,8 @@
 #define MySensitiveDetector_H
 
 #include "G4VSensitiveDetector.hh"
+#include "G4Event.hh""
+
 
 class G4Step;
 class G4TouchableHistory;

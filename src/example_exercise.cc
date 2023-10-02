@@ -11,11 +11,16 @@
 
 #include "G4PhysListFactory.hh"
 #include "G4VModularPhysicsList.hh"
+#include "Randomize.hh"
 
 int main(int argc, char **argv)
 {
   G4RunManager *runManager = new G4RunManager();
   runManager->SetUserInitialization(new MyDetectorConstruction());
+
+
+  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+
 
   G4PhysListFactory physListFactory;
   G4String plName = "FTFP_BERT";
