@@ -46,7 +46,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, worldMat, "solidCylinder");
   G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, G4ThreeVector(0., 0., 10. * cm), logicCylinder, "physCylinder", logicWorld, false, 0, true);
 
-
+  
   
   int ndiv=10;
   G4Box* solidDet = new G4Box("solidDet", 0.5 / ndiv * m, 0.5 / ndiv * m, 0.01 * m);
@@ -57,7 +57,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
       G4VPhysicalVolume *physDet = new G4PVPlacement(0,G4ThreeVector(-0.5*m+(i+0.5)*m/ndiv, -0.5*m+(j+0.5)*m/ndiv, 60*cm),logicDet, "physDet",logicWorld, false, j+i*ndiv, true); 
     }
   }   
-   
+
+
+  fScoringVolume = logicDet;
+
+
+
   return physWorld;
 }
 
