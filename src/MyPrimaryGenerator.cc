@@ -38,7 +38,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
   G4double z0 = 0.;
 
 
-  G4ThreeVector pos(0., 0., 0.);
+  G4ThreeVector pos(x0, y0, z0);
   G4ThreeVector mom(0.,0.,1.);
 
   fParticleGun->SetParticlePosition(pos);
