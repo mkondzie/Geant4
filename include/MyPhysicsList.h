@@ -8,5 +8,7 @@ class MyPhysicsList : public G4VModularPhysicsList
 public:
   MyPhysicsList();
   ~MyPhysicsList();
+  virtual void ConstructProcess();
+ virtual void ConstructEM();
 };
 #endif

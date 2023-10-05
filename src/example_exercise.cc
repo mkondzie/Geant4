@@ -8,6 +8,7 @@
 #include "MyDetectorConstruction.h"
 #include "MyPhysicsList.h"
 #include "MyActionInitialization.h"
+#include "MySteppingAction.h"
 
 #include "G4PhysListFactory.hh"
 #include "G4VModularPhysicsList.hh"
@@ -24,13 +25,12 @@ int main(int argc, char **argv)
 
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
-
-  G4PhysListFactory physListFactory;
-  G4String plName = "FTFP_BERT";
-  G4VModularPhysicsList *pList = physListFactory.GetReferencePhysList(plName);
-  runManager->SetUserInitialization(pList);
-  pList->SetVerboseLevel(1);
-//  runManager->SetUserInitialization(new MyPhysicsList());
+  //G4PhysListFactory physListFactory;
+  //G4String plName = "FTFP_BERT";
+  //G4VModularPhysicsList *pList = physListFactory.GetReferencePhysList(plName);
+  //runManager->SetUserInitialization(pList);
+  //pList->SetVerboseLevel(1);
+  runManager->SetUserInitialization(new MyPhysicsList());
 
   runManager->SetUserInitialization(new MyActionInitialization());
   runManager->Initialize();

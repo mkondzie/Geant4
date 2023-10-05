@@ -1,6 +1,7 @@
 #include "MySteppingAction.h"
 #include "G4RunManager.hh"
 
+
 MySteppingAction::MySteppingAction(MyEventAction* eventAction) {
     fEventAction = eventAction;
 }
@@ -22,8 +23,7 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
     fEventAction->AddEdep(edep);
 
 
-    const G4StepPoint* endPoint = step->GetPostStepPoint();
-    const G4VProcess* process = endPoint->GetProcessDefinedStep();
-    G4cout << process->GetProcessName() << G4endl;
+    
+    
 
 }
