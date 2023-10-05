@@ -25,11 +25,7 @@ int main(int argc, char **argv)
 
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
-  //G4PhysListFactory physListFactory;
-  //G4String plName = "FTFP_BERT";
-  //G4VModularPhysicsList *pList = physListFactory.GetReferencePhysList(plName);
-  //runManager->SetUserInitialization(pList);
-  //pList->SetVerboseLevel(1);
+
   runManager->SetUserInitialization(new MyPhysicsList());
 
   runManager->SetUserInitialization(new MyActionInitialization());
@@ -65,7 +61,7 @@ if (!ui) {
   }
  
 
-//  runManager->BeamOn(1);
+
 
   delete runManager;
   delete visManager;

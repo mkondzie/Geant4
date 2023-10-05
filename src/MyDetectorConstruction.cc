@@ -37,14 +37,14 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   
   
 
-  G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 0.8 * m);
+  G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 60.5 * m);
   G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, copperMat,"logicWorld");
   G4VPhysicalVolume *physWorld = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicWorld, "physWorld", 0, false, 0, true);
 
 
   G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, 19.5 * cm, 0, 360 * deg);
   G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, worldMat, "solidCylinder");
-  G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, G4ThreeVector(0., 0., 10. * cm), logicCylinder, "physCylinder", logicWorld, false, 0, true);
+  G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, G4ThreeVector(0., 0., 10. * m), logicCylinder, "physCylinder", logicWorld, false, 0, true);
 
   
   
@@ -54,7 +54,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   
   for (G4int i=0; i<ndiv; i++) {
     for (G4int j=0; j<ndiv; j++) {
-      G4VPhysicalVolume *physDet = new G4PVPlacement(0,G4ThreeVector(-0.5*m+(i+0.5)*m/ndiv, -0.5*m+(j+0.5)*m/ndiv, 60*cm),logicDet, "physDet",logicWorld, false, j+i*ndiv, true); 
+      G4VPhysicalVolume *physDet = new G4PVPlacement(0,G4ThreeVector(-0.5*m+(i+0.5)*m/ndiv, -0.5*m+(j+0.5)*m/ndiv, 60*m),logicDet, "physDet",logicWorld, false, j+i*ndiv, true); 
     }
   }   
 
