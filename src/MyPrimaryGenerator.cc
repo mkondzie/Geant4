@@ -29,7 +29,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
 
 
   // To generate a beam with a 1 mm diameter, initial
-    // particle positions are randomized within a circle
+  // particle positions are randomized within a circle
   G4double radius = 0.5 * mm;
   G4double phi = 2.0 * CLHEP::pi * G4UniformRand();
   G4double r = radius * G4UniformRand();

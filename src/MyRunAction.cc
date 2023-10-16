@@ -27,16 +27,15 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 		man->OpenFile("output.root");
 
 
-		man->CreateNtuple("Position", "Position");
+		man->CreateNtuple("Hits", "Hits");
 		man->CreateNtupleDColumn("fX"); //XY position
 		man->CreateNtupleDColumn("fY"); //Z fixed to 60.*m
 		man->CreateNtupleDColumn("fZ");
+		man->CreateNtupleDColumn("fE");
 		man->FinishNtuple(0);
 
 
-		man->CreateNtuple("Energy", "Energy");
-		man->CreateNtupleDColumn("fEdep");
-		man->FinishNtuple(1);
+		
 
 }
 
