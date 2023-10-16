@@ -48,7 +48,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
 
   
   
-  int ndiv=10;
+  int ndiv=100;
   G4Box* solidDet = new G4Box("solidDet", 0.5 / ndiv * m, 0.5 / ndiv * m, 0.01 * m);
   logicDet = new G4LogicalVolume(solidDet, worldMat, "logicDetector");
   
@@ -59,7 +59,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   }   
 
 
-  fScoringVolume = logicDet;
+  fScoringVolume = logicCylinder;
 
 
 
