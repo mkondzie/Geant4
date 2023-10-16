@@ -2,8 +2,8 @@
 #include "MyActionInitialization.h"
 #include "G4AnalysisManager.hh"
 #include "MyPrimaryGenerator.h"
-
-
+#include "G4RunManager.hh"
+#include "Randomize.hh"
 
 
 MyRunAction::MyRunAction() {
@@ -27,6 +27,8 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 		man->OpenFile("output.root");
 
 
+		
+
 		man->CreateNtuple("Hits", "Hits");
 		man->CreateNtupleDColumn("fX"); //XY position
 		man->CreateNtupleDColumn("fY"); //Z fixed to 60.*m
@@ -35,8 +37,10 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 		man->FinishNtuple(0);
 
 
-		
 
+		G4RunManager::GetRunManager()->SetRandomNumberStore(true);
+		
+		
 }
 
 

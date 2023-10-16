@@ -3,7 +3,8 @@
 #include "MyRunAction.h"
 #include "MyEventAction.h"
 #include "MySteppingAction.h"
-
+#include "MyStackingAction.h"
+#include "MyStackingAction.h"
 
 MyActionInitialization::MyActionInitialization() { }
 
@@ -21,6 +22,7 @@ void MyActionInitialization::Build() const
   MySteppingAction* steppingAction = new MySteppingAction(eventAction);
   SetUserAction(steppingAction);
 
-
+  MyStackingAction* stackingAction = new MyStackingAction();
+  SetUserAction(stackingAction);
 
 }

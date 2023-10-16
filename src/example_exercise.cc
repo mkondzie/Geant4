@@ -19,11 +19,25 @@ int main(int argc, char **argv)
   G4UIExecutive* ui = nullptr;
   if (argc == 1) { ui = new G4UIExecutive(argc, argv); }
 
+
+  G4long seed = static_cast<G4long>(G4UniformRand() * std::numeric_limits<G4long>::max());
+
+ G4Random::setTheSeed(seed);
+ CLHEP::HepRandom::setTheSeed(seed);
+ G4Random::setTheEngine(new CLHEP::RanecuEngine);
+ CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
+
+
   G4RunManager *runManager = new G4RunManager();
   runManager->SetUserInitialization(new MyDetectorConstruction());
 
 
-  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  
+
+
+ 
+
+
 
 
   runManager->SetUserInitialization(new MyPhysicsList());
