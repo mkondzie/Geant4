@@ -13,6 +13,7 @@
 #include "G4ThreeVector.hh"
 #include "G4MaterialPropertiesTable.hh"
 #include "MySensitiveDetector.h"
+#include "G4UserLimits.hh"
 
 MyDetectorConstruction::MyDetectorConstruction() { }
 
@@ -42,18 +43,23 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   G4VPhysicalVolume *physWorld = new G4PVPlacement(0, 
       G4ThreeVector(0.,0.,0.), logicWorld, "physWorld", 0, false, 0, true);
 
-
+                                                                 //cm
   G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, 19.5 * cm, 0, 360 * deg);
   G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, worldMat, "solidCylinder");
   G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, 
       G4ThreeVector(0., 0., 10. * m), logicCylinder, "physCylinder", logicWorld, false, 0, true);
 
-  
+  /*G4UserLimits* userLimits = new G4UserLimits();
+  userLimits->SetUserMinEkine(9.5 * MeV);
+
+  logicWorld->SetUserLimits(userLimits);
+  logicCylinder->SetUserLimits(userLimits);*/
+
   G4Box* solidDet = new G4Box("solidDet", 0.5 * m, 0.5 * m, 0.01 * m);
   logicDet = new G4LogicalVolume(solidDet, worldMat, "logicDetector");
   G4VPhysicalVolume* physDet = new G4PVPlacement(0, 
       G4ThreeVector(0 * m, 0 * m, 60 * m), logicDet, "physDet", logicWorld, false, 0, true);
-
+                                //60
 
 
 
