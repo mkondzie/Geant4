@@ -10,8 +10,8 @@
 #include "Randomize.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator() { 
-  G4int n_particle = 1;
-  fParticleGun = new G4ParticleGun(1);
+  G4int n_particle = 1000000;
+  fParticleGun = new G4ParticleGun(n_particle);
 
 
 

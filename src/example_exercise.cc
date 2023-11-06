@@ -1,5 +1,6 @@
 #include <iostream>
 #include "G4RunManager.hh"
+#include "G4MTRunManager.hh"
 #include "G4UImanager.hh"
 #include "G4VisManager.hh"
 #include "G4VisExecutive.hh"
@@ -8,10 +9,8 @@
 #include "MyDetectorConstruction.h"
 #include "MyPhysicsList.h"
 #include "MyActionInitialization.h"
-#include "MySteppingAction.h"
 
 #include "G4PhysListFactory.hh"
-#include "G4VModularPhysicsList.hh"
 #include "Randomize.hh"
 
 int main(int argc, char **argv)
@@ -19,11 +18,30 @@ int main(int argc, char **argv)
   G4UIExecutive* ui = nullptr;
   if (argc == 1) { ui = new G4UIExecutive(argc, argv); }
 
-  G4RunManager *runManager = new G4RunManager();
+
+  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  CLHEP::HepRandom::setTheSeed((unsigned)clock());
+
+
+#ifdef G4MULTITHREADED
+  G4MTRunManager* runManager = new G4MTRunManager;
+  runManager->SetNumberOfThreads(2 * (G4Threading::G4GetNumberOfCores()));
+  G4cout << "Multithreaded" << G4endl;
+#else
+  G4RunManager* runManager = new G4RunManager;
+  G4cout << "Single threaded" << G4endl;
+#endif
+
+
   runManager->SetUserInitialization(new MyDetectorConstruction());
 
 
-  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  
+
+
+ 
+
+
 
 
   runManager->SetUserInitialization(new MyPhysicsList());
@@ -39,6 +57,10 @@ int main(int argc, char **argv)
 
 if (!ui) {
       // batch mode
+
+
+
+
       G4String command = "/control/execute ";
       G4String fileName = argv[1];
       UImanager->ApplyCommand(command + fileName);
