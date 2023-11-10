@@ -34,10 +34,11 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
 
   man->FillNtupleDColumn(0, position.x());
   man->FillNtupleDColumn(1, position.y());
-  man->FillNtupleDColumn(2, position.z());
-  man->FillNtupleDColumn(3, energy);
-  man->FillNtupleIColumn(4, trackID);
-  man->FillNtupleIColumn(5, parentID);
+  man->FillNtupleDColumn(2, energy);
+  //man->FillNtupleIColumn(3, parentID);
+  //man->FillNtupleDColumn(4, position.z());
+  //man->FillNtupleIColumn(5, trackID);
+  
 
   man->AddNtupleRow(0);
   

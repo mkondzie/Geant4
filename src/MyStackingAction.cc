@@ -10,6 +10,13 @@
 
 #include "G4StackManager.hh"
 
+
+
+const G4double theta = 1.e-4;
+const G4double E0 = 10 * MeV;
+const G4double E = 1 / (((1 - cos(theta)) / CLHEP::electron_mass_c2) + 1 / E0);
+
+
 G4ClassificationOfNewTrack
 MyStackingAction::ClassifyNewTrack(const G4Track* track)
 {
@@ -22,19 +29,17 @@ MyStackingAction::ClassifyNewTrack(const G4Track* track)
 
   
   G4double particleEnergy = track->GetKineticEnergy();
-  G4double theta = 1.e-4;
-  G4double E0 = 10 * MeV;
-  G4double E = 1 / (((1 - cos(theta)) / CLHEP::electron_mass_c2) + 1 / E0);
-
-  if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < E)) return fKill;
-																	// 9.5 * MeV
+  if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < 9.5 * MeV)) return fKill;
+  																			// E
+  
   else return fUrgent;
 }
 
 
 void MyStackingAction::NewStage()
-{
+{/*
 	G4StackManager* stackManager = new G4StackManager;
 	stackManager->ReClassify();
     stackManager->ClearWaitingStack();
+	*/
 }
