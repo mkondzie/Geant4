@@ -8,8 +8,6 @@
 #include "CLHEP/Units/PhysicalConstants.h"
 #include "G4Gamma.hh"
 
-#include "G4StackManager.hh"
-
 G4ClassificationOfNewTrack
 MyStackingAction::ClassifyNewTrack(const G4Track* track)
 {
