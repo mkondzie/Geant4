@@ -5,7 +5,6 @@
 #include "G4RunManager.hh"
 #include "Randomize.hh"
 
-
 MyRunAction::MyRunAction() {
 
 	
@@ -24,6 +23,9 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 
 
 		G4AnalysisManager* man = G4AnalysisManager::Instance();
+
+
+
 		man->OpenFile("output.root");
 
 
@@ -32,10 +34,10 @@ void MyRunAction::BeginOfRunAction(const G4Run*) {
 		man->CreateNtuple("Hits", "Hits");
 		man->CreateNtupleDColumn("fX"); //XY position
 		man->CreateNtupleDColumn("fY"); //Z fixed to 60.*m
-		man->CreateNtupleDColumn("fZ");
 		man->CreateNtupleDColumn("fE");
-		man->CreateNtupleIColumn("fTrackID");
-		man->CreateNtupleIColumn("fParentID");
+		//man->CreateNtupleIColumn("fParentID");
+		//man->CreateNtupleDColumn("fZ");
+		//man->CreateNtupleIColumn("fTrackID"); 
 		man->FinishNtuple(0);
 
 

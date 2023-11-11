@@ -16,7 +16,12 @@ public:
     ~MySteppingAction();
 
 	virtual void UserSteppingAction(const G4Step*);
+	
 private:
 	MyEventAction* fEventAction;
+	
 };
+
+// extern G4double previousEnergy;
+
 #endif

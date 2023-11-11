@@ -26,10 +26,10 @@ int main(int argc, char **argv)
 #ifdef G4MULTITHREADED
   G4MTRunManager* runManager = new G4MTRunManager;
   runManager->SetNumberOfThreads(2 * (G4Threading::G4GetNumberOfCores()));
-  G4cout << "Multithreaded" << G4endl;
+  //G4cout << "Multithreaded" << G4endl;
 #else
   G4RunManager* runManager = new G4RunManager;
-  G4cout << "Single threaded" << G4endl;
+  //G4cout << "Single threaded" << G4endl;
 #endif
 
 
@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 
 if (!ui) {
       // batch mode
+
       G4String command = "/control/execute ";
       G4String fileName = argv[1];
       UImanager->ApplyCommand(command + fileName);

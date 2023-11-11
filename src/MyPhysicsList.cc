@@ -18,10 +18,12 @@
 #include "G4ComptonScattering.hh"
 #include "G4GammaConversion.hh"
 
+
 #include "G4eMultipleScattering.hh"
 #include "G4eIonisation.hh"
 #include "G4eBremsstrahlung.hh"
 #include "G4eplusAnnihilation.hh"
+
 
 MyPhysicsList::MyPhysicsList() : G4VUserPhysicsList()
 {
@@ -79,7 +81,7 @@ void MyPhysicsList::ConstructEM()
 			ph->RegisterProcess(new G4GammaConversion(), particle);
 
 		}
-		/*
+		
 		else if (particleName == "e-") {
 
 			ph->RegisterProcess(new G4eMultipleScattering(), particle);
@@ -95,7 +97,7 @@ void MyPhysicsList::ConstructEM()
 			ph->RegisterProcess(new G4eplusAnnihilation(), particle);
 
 		}
-		*/
+		
 	}
 
 }

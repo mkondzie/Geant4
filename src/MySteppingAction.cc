@@ -5,6 +5,9 @@
 #include "CLHEP/Units/PhysicalConstants.h"
 #include "G4Gamma.hh"
 
+//#include "MyStackingAction.h"
+//G4double previousEnergy = 10 * MeV;
+
 MySteppingAction::MySteppingAction(MyEventAction* eventAction) {
     fEventAction = eventAction;
 }
@@ -17,23 +20,23 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
     //kill scattered gammas
    
     G4Track* track = step->GetTrack();
-    G4double particleEnergy = track->GetKineticEnergy();
+    G4StepPoint* preStepPoint = step->GetPreStepPoint();
+    G4StepPoint* postStepPoint = step->GetPostStepPoint();
 
- /*   
-    G4double theta = 1.e-4;
-    G4double E0 = 10 * MeV;
-    G4double E = 1 / (((1 - cos(theta)) / CLHEP::electron_mass_c2) + 1 / E0);
+    G4double particleEnergy = postStepPoint->GetKineticEnergy();//track->GetKineticEnergy();
+    G4double previousEnergy = preStepPoint->GetKineticEnergy();
 
- */    
-    
-
-
-    if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < 9.5 * MeV ))
+    G4double theta = 0.0001 * rad; // 1.e-4
+    G4double E = 1 / (((1 - cos(theta)) / CLHEP::electron_mass_c2) + 1 / previousEnergy);
+ 
+   
+  
+    if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < E))
     {
         track->SetTrackStatus(fKillTrackAndSecondaries);
     }
     
-    
+    //G4double previousEnergy = track->GetKineticEnergy();
 
 
 
@@ -43,7 +46,7 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
 
 
-    /*
+    /* //string comparison - slow
     G4String processName = step->GetTrack()->GetCreatorProcess()->GetProcessName();
 
     G4String particleName = track->GetDefinition()->GetParticleName();

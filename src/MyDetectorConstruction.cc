@@ -23,8 +23,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
 
   G4NistManager *nist = G4NistManager::Instance();
   G4Material* copperMat = nist->FindOrBuildMaterial("G4_Cu");
+  G4Material* worldMat = nist->FindOrBuildMaterial("G4_Galactic");
 
-
+ /*
   G4double A, Z;
   G4Element* elN = new G4Element("Nitrogen", "N", Z = 7., A = 14.00674 * g / mole);
   G4Element* elO = new G4Element("Oxygen", "O", Z = 8., A = 15.9994 * g / mole);
@@ -35,19 +36,21 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   G4Material* worldMat = new G4Material("Vacuum", density, nel = 2);
   worldMat->AddElement(elN, .7);
   worldMat->AddElement(elO, .3);
-  
+  */
   
 
   G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 60.5 * m);
-  G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, copperMat,"logicWorld");
+  G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat,"logicWorld");
   G4VPhysicalVolume *physWorld = new G4PVPlacement(0, 
       G4ThreeVector(0.,0.,0.), logicWorld, "physWorld", 0, false, 0, true);
 
-                                                                 //cm
+                                                              //19.5 * cm
   G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, 19.5 * cm, 0, 360 * deg);
-  G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, worldMat, "solidCylinder");
+  G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, copperMat, "solidCylinder");
   G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, 
       G4ThreeVector(0., 0., 10. * m), logicCylinder, "physCylinder", logicWorld, false, 0, true);
+
+
 
   /*G4UserLimits* userLimits = new G4UserLimits();
   userLimits->SetUserMinEkine(9.5 * MeV);

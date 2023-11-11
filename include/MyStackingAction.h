@@ -19,8 +19,6 @@ public:
     void NewStage() override;
 };
 
-
-
-
+//extern const G4double E;
 
 #endif
