@@ -18,16 +18,25 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
     G4StepPoint* preStepPoint = step->GetPreStepPoint();
     G4StepPoint* postStepPoint = step->GetPostStepPoint();
 
-    G4double particleEnergy = postStepPoint->GetKineticEnergy();
-    G4double previousEnergy = preStepPoint->GetKineticEnergy();
-
-    G4double theta = 0.0001 * rad; 
-    G4double E = 1 / (((1 - cos(theta)) / CLHEP::electron_mass_c2) + 1 / previousEnergy);
+    G4ThreeVector preMomentum = preStepPoint->GetMomentum();
+    G4ThreeVector postMomentum = postStepPoint->GetMomentum();
+    G4double cosTheta = preMomentum * postMomentum / (preMomentum.mag() * postMomentum.mag());
+    G4double scatteringAngle = std::acos(cosTheta);
+    G4double maxScatteringAngle = 0.0001 * rad;
  
-    if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < E))
-    {
-        track->SetTrackStatus(fKillTrackAndSecondaries);
+    if (scatteringAngle > maxScatteringAngle) {
+
+    track->SetTrackStatus(fKillTrackAndSecondaries);
+        
     }
+
+
+    if ((track->GetDefinition() == G4Gamma::Gamma()) && (track->GetKineticEnergy() < 9.5 * MeV)){
+        
+    track->SetTrackStatus(fKillTrackAndSecondaries);
+        
+    }
+
     
     G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
         const MyDetectorConstruction* detectorConstruction = static_cast<const MyDetectorConstruction*>
