@@ -53,9 +53,9 @@ double stdDevY = hist->GetStdDev(2);
 
 leg->AddEntry((TObject*)0, Form("#mu_{y} = %.0f mm, #sigma_{y} = %.0f mm", meanX, stdDevX), "");
 leg->AddEntry((TObject*)0, Form("#mu_{E} = %.4f MeV, #sigma_{E} = %.4f MeV", meanY, stdDevY), "");
-leg->AddEntry((TObject*)0, "#theta > 0.0001 rad", "");
 
-gStyle->SetPalette(kAvocado);//Viridis 
+
+gStyle->SetPalette(kAvocado);//kViridis kCandy
 gStyle->SetCanvasColor(kWhite);
 gStyle->SetLabelOffset(0.05, "XY");
 gStyle->SetOptStat(0);
