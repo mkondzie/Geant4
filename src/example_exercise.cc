@@ -18,42 +18,27 @@ int main(int argc, char **argv)
   G4UIExecutive* ui = nullptr;
   if (argc == 1) { ui = new G4UIExecutive(argc, argv); }
 
-
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
   CLHEP::HepRandom::setTheSeed((unsigned)clock());
-
 
 #ifdef G4MULTITHREADED
   G4MTRunManager* runManager = new G4MTRunManager;
   runManager->SetNumberOfThreads(2 * (G4Threading::G4GetNumberOfCores()));
-  //G4cout << "Multithreaded" << G4endl;
 #else
   G4RunManager* runManager = new G4RunManager;
-  //G4cout << "Single threaded" << G4endl;
 #endif
 
-
   runManager->SetUserInitialization(new MyDetectorConstruction());
-
-
-  
-
-
- 
-
-
-
 
   runManager->SetUserInitialization(new MyPhysicsList());
 
   runManager->SetUserInitialization(new MyActionInitialization());
+  
   runManager->Initialize();
-
 
   G4VisManager *visManager = new G4VisExecutive();
   visManager->Initialize();
   G4UImanager *UImanager = G4UImanager::GetUIpointer();
-  
 
 if (!ui) {
       // batch mode
@@ -64,9 +49,7 @@ if (!ui) {
   }
   else {
       // interactive mode
-    
-
-    
+        
     UImanager->ApplyCommand("/vis/open OGL");
     UImanager->ApplyCommand("/vis/viewer/set/viewpointVector 1 1 1");
     UImanager->ApplyCommand("/vis/drawVolume");
@@ -79,13 +62,9 @@ if (!ui) {
 
   }
  
-
-
-
   delete runManager;
   delete visManager;
-  //delete ui;
-
 
   return 0;
+
 }
