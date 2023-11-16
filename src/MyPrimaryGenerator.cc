@@ -13,13 +13,12 @@ MyPrimaryGenerator::MyPrimaryGenerator() {
   G4int n_particle = 100000; //1000000
   fParticleGun = new G4ParticleGun(n_particle);
 
-
-
-
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator() {
+  
   delete fParticleGun;
+
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
@@ -37,7 +36,6 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
   G4double y0 = r * sin(phi);
   G4double z0 = 0.;
 
-
   G4ThreeVector pos(x0, y0, z0);
   G4ThreeVector mom(0.,0.,1.);
 
@@ -45,9 +43,6 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
   fParticleGun->SetParticleMomentumDirection(mom);
   fParticleGun->SetParticleEnergy(10.*MeV);
   fParticleGun->SetParticleDefinition(particle);
-
-
-
 
   fParticleGun->GeneratePrimaryVertex(ev);
 }
