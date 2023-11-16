@@ -7,30 +7,23 @@
 #include "G4VProcess.hh"
 #include "G4AnalysisManager.hh"
 
-//#include "MyStackingAction.h"
-//G4double previousEnergy = 10 * MeV;
-
 MySteppingAction::MySteppingAction(MyEventAction* eventAction) {
+    
     fEventAction = eventAction;
 }
 
 MySteppingAction::~MySteppingAction() { }
 
-
 void MySteppingAction::UserSteppingAction(const G4Step* step)
 {
-    //kill scattered gammas
    
     G4Track* track = step->GetTrack();
     G4StepPoint* preStepPoint = step->GetPreStepPoint();
     G4StepPoint* postStepPoint = step->GetPostStepPoint();
     const G4VProcess* process = preStepPoint->GetProcessDefinedStep();
 
-   // G4double particleEnergy = postStepPoint->GetKineticEnergy();//track->GetKineticEnergy();
-   // G4double previousEnergy = preStepPoint->GetKineticEnergy();
-
-  
-
+    //kill scattered gammas
+    
     if (process && process->GetProcessName() == "compt") {
 
         G4ThreeVector preMomentum = preStepPoint->GetMomentum();
@@ -72,65 +65,12 @@ void MySteppingAction::UserSteppingAction(const G4Step* step)
             (process->GetProcessName() == "msc"))) {
 
             track->SetTrackStatus(fKillTrackAndSecondaries);
+            
         }
         
-
-    /*
-    G4double E = previousEnergy / (1 + (previousEnergy / (CLHEP::electron_mass_c2)) * (1 - cos(theta)));
-
-    if ((track->GetDefinition() == G4Gamma::Gamma()) && (particleEnergy < E))
-    {
-        track->SetTrackStatus(fKillTrackAndSecondaries);
-    }
-    */
-
-
-    //G4double previousEnergy = track->GetKineticEnergy();
-
-
     G4LogicalVolume* volume = preStepPoint->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-        const MyDetectorConstruction* detectorConstruction = static_cast<const MyDetectorConstruction*>
+    
+    const MyDetectorConstruction* detectorConstruction = static_cast<const MyDetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-
-
-    /* //string comparison - slow
-    G4String processName = step->GetTrack()->GetCreatorProcess()->GetProcessName();
-
-    G4String particleName = track->GetDefinition()->GetParticleName();
-
-    G4int parentId = track->GetParentID();
-
-    const G4ParticleDefinition* particleDef = track->GetParticleDefinition();
-
-    if ((processName == "phot") || (processName == "conv")) {
-
-        track->SetTrackStatus(fKillTrackAndSecondaries);
-    }
-
-    if ((processName == "compt") && (particleName == "gamma") && (particleEnergy < E)) {
-
-        track->SetTrackStatus(fKillTrackAndSecondaries);
-    }
-
-    if ((processName == "compt") && ((particleName == "e-") || (particleName == "e+")) && (parentId > 0)) {
-
-        track->SetTrackStatus(fKillTrackAndSecondaries);
-    }
-
-    */
-
-   // if (particleDef->GetPDGCharge() == 0.0)
-   // {
-       // if ((processName == "phot") || (processName == "conv")) {
-        //    track->SetTrackStatus(fKillTrackAndSecondaries);
-       // }
-
-
-
     
-      
-
-
-    
-
 }
