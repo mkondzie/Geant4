@@ -17,4 +17,7 @@ public:
 
     G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track*) override;
 };
+
+//extern const G4double E;
+
 #endif

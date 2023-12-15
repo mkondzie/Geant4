@@ -21,4 +21,7 @@ private:
 	MyEventAction* fEventAction;
 	
 };
+
+// extern G4double previousEnergy;
+
 #endif
