@@ -23,31 +23,29 @@ int main(int argc, char **argv)
 
 #ifdef G4MULTITHREADED
   G4MTRunManager* runManager = new G4MTRunManager;
-  runManager->SetNumberOfThreads(2 * (G4Threading::G4GetNumberOfCores()));
+  runManager->SetNumberOfThreads(G4Threading::G4GetNumberOfCores());
 #else
   G4RunManager* runManager = new G4RunManager;
 #endif
-  
+
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
-  runManager->SetUserInitialization(new MyActionInitialization());  
+  runManager->SetUserInitialization(new MyActionInitialization());
   runManager->Initialize();
 
   G4VisManager *visManager = new G4VisExecutive();
   visManager->Initialize();
   G4UImanager *UImanager = G4UImanager::GetUIpointer();
   
-if (!ui) {
-  
-      // batch mode
+if (!ui) { // batch mode
+     
       G4String command = "/control/execute ";
       G4String fileName = argv[1];
       UImanager->ApplyCommand(command + fileName);
-  
+
   }
-  else {
-    
-      // interactive mode
+  else { // interactive mode
+      
     UImanager->ApplyCommand("/vis/open OGL");
     UImanager->ApplyCommand("/vis/viewer/set/viewpointVector 1 1 1");
     UImanager->ApplyCommand("/vis/drawVolume");
@@ -64,4 +62,5 @@ if (!ui) {
   delete visManager;
 
   return 0;
+
 }

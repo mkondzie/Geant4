@@ -23,6 +23,9 @@
 #include "G4eBremsstrahlung.hh"
 #include "G4eplusAnnihilation.hh"
 
+#include "G4VModularPhysicsList.hh"
+#include "G4StepLimiterPhysics.hh"
+
 MyPhysicsList::MyPhysicsList() : G4VUserPhysicsList()
 {
 	fCutForGamma = 0.7 * mm;
@@ -30,12 +33,10 @@ MyPhysicsList::MyPhysicsList() : G4VUserPhysicsList()
 	fCutForPositron = 1000 * km;
 	
 	SetVerboseLevel(1);
+	
 }
 
-MyPhysicsList::~MyPhysicsList() 
-{
-
-}
+MyPhysicsList::~MyPhysicsList() { }
 
 void MyPhysicsList::ConstructParticle()
 {
@@ -62,6 +63,7 @@ void MyPhysicsList::ConstructProcess()
 
 void MyPhysicsList::ConstructEM()
 {
+	
 	G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
 	auto particleIterator = GetParticleIterator();
 	particleIterator->reset();
