@@ -30,7 +30,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
 
   G4double radius = 0.5 * mm;
   G4double phi = 2.0 * CLHEP::pi * G4UniformRand();
-  G4double r = radius * G4UniformRand();
+  G4double r = radius * std::sqrt(G4UniformRand());
   G4double x0 = r * cos(phi);
   G4double y0 = r * sin(phi);
   G4double z0 = 0.;
