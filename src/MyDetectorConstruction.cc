@@ -24,13 +24,14 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
   G4NistManager *nist = G4NistManager::Instance();
   G4Material* copperMat = nist->FindOrBuildMaterial("G4_Cu");
   G4Material* worldMat = nist->FindOrBuildMaterial("G4_Galactic");
+  fCylinderHalfLength = 19.5 * cm; // 5.5
 
   G4Box* solidWorld = new G4Box("solidWorld", 0.5 * m, 0.5 * m, 60.5 * m);
   G4LogicalVolume *logicWorld = new G4LogicalVolume(solidWorld, worldMat,"logicWorld");
   G4VPhysicalVolume *physWorld = new G4PVPlacement(0, 
       G4ThreeVector(0.,0.,0.), logicWorld, "physWorld", 0, false, 0, true);
-
-  G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, 19.5 * cm, 0, 360 * deg);
+                                                          
+  G4Tubs* solidCylinder = new G4Tubs("cylinder", 0, 5 * cm, fCylinderHalfLength, 0, 360 * deg);
   G4LogicalVolume* logicCylinder = new G4LogicalVolume(solidCylinder, copperMat, "solidCylinder");
   G4VPhysicalVolume* physCylinder = new G4PVPlacement(0, 
       G4ThreeVector(0., 0., 10. * m), logicCylinder, "physCylinder", logicWorld, false, 0, true);
