@@ -28,7 +28,7 @@ std::string formatInExponentialNotation(double value) {
 }
 
 void Geant4() {
-	TFile* rootFile = new TFile("output.root", "READ");
+	TFile* rootFile = new TFile("output_0.root", "READ");
 
 	TH1D* primaries; 
 	TH1D* primaryHits; 
@@ -50,6 +50,7 @@ void Geant4() {
 	canvas->Print("Geant.pdf[");
 	TPaveText* t = new TPaveText(.05, .1, .95, .8);
 	t->AddText("");
+	//t->AddText("11 cm cylinder"); 
 	t->AddText((cylinderLengthString + " cm cylinder").c_str()); 
 	t->AddLine(0, 0.5, 1, 0.5);
 	t->AddText(""); 
@@ -65,7 +66,7 @@ void Geant4() {
 	TTree* scattering;
 	rootFile->GetObject("Scattering", scattering);
 	TH2D* histScatteringXY = new TH2D("", "", 34, -0.55, 0.55, 34, -0.55, 0.55);
-	TH1F* histScatteringZ = new TH1F("", "", 100, 9940, 10060);
+	TH1F* histScatteringZ = new TH1F("", "", 100, 10000 - cylinderLength * 5.1, 10000 + 5.1 * cylinderLength);
 
 	double_t x, y, z, E;
 	scattering->SetBranchAddress("fX", &x);
@@ -143,7 +144,9 @@ void Geant4() {
 	Long64_t nEntries = hits->GetEntries();
 	for (Long64_t i = 0; i < nEntries; i++) {
 		hits->GetEntry(i);
+		//profHitsXY->Fill(x, y, (E - 10) * 1e6);
 		profHitsXY->Fill(x, y, (E - primaryEnergy) * 1e6);
+		//profHitsEr->Fill(std::sqrt(x * x + y * y), (E - 10) * 1e6);
 		profHitsEr->Fill(std::sqrt(x * x + y * y), (E - primaryEnergy) * 1e6);
 		histHitsr->Fill(std::sqrt(x * x + y * y));
 	}
