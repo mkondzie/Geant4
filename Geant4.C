@@ -50,7 +50,6 @@ void Geant4() {
 	canvas->Print("Geant.pdf[");
 	TPaveText* t = new TPaveText(.05, .1, .95, .8);
 	t->AddText("");
-	//t->AddText("11 cm cylinder"); 
 	t->AddText((cylinderLengthString + " cm cylinder").c_str()); 
 	t->AddLine(0, 0.5, 1, 0.5);
 	t->AddText(""); 
