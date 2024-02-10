@@ -8,25 +8,27 @@
 #include "G4ParticleDefinition.hh"
 #include "CLHEP/Units/PhysicalConstants.h"
 #include "Randomize.hh"
+#include "G4Types.hh"
 
-MyPrimaryGenerator::MyPrimaryGenerator() { 
+MyPrimaryGenerator::MyPrimaryGenerator()
+{
 
-  G4int nParticles = 1000000; 
+  G4int nParticles = 5000000; // 1000000
   fParticleGun = new G4ParticleGun(nParticles);
-
 }
 
-MyPrimaryGenerator::~MyPrimaryGenerator() {
+MyPrimaryGenerator::~MyPrimaryGenerator()
+{
 
   delete fParticleGun;
-
 }
 
-void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
+void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev)
+{
 
-  G4ParticleTable * particleTable = G4ParticleTable::GetParticleTable();
-  G4String beamPart="gamma";
-  G4ParticleDefinition *particle=particleTable->FindParticle(beamPart);
+  G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
+  G4String beamPart = "gamma";
+  G4ParticleDefinition *particle = particleTable->FindParticle(beamPart);
 
   G4double radius = 0.5 * mm;
   G4double phi = 2.0 * CLHEP::pi * G4UniformRand();
@@ -34,15 +36,15 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *ev) {
   G4double x0 = r * cos(phi);
   G4double y0 = r * sin(phi);
   G4double z0 = 0.;
+  fPrimaryEnergy = 10. * MeV;
 
   G4ThreeVector pos(x0, y0, z0);
-  G4ThreeVector mom(0.,0.,1.);
+  G4ThreeVector mom(0., 0., 1.);
 
   fParticleGun->SetParticlePosition(pos);
   fParticleGun->SetParticleMomentumDirection(mom);
-  fParticleGun->SetParticleEnergy(10.*MeV);
+  fParticleGun->SetParticleEnergy(fPrimaryEnergy);
   fParticleGun->SetParticleDefinition(particle);
 
   fParticleGun->GeneratePrimaryVertex(ev);
-
 }
