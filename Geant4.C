@@ -143,9 +143,7 @@ void Geant4() {
 	Long64_t nEntries = hits->GetEntries();
 	for (Long64_t i = 0; i < nEntries; i++) {
 		hits->GetEntry(i);
-		//profHitsXY->Fill(x, y, (E - 10) * 1e6);
 		profHitsXY->Fill(x, y, (E - primaryEnergy) * 1e6);
-		//profHitsEr->Fill(std::sqrt(x * x + y * y), (E - 10) * 1e6);
 		profHitsEr->Fill(std::sqrt(x * x + y * y), (E - primaryEnergy) * 1e6);
 		histHitsr->Fill(std::sqrt(x * x + y * y));
 	}
