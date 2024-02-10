@@ -1,6 +1,5 @@
 #include "MySteppingAction.h"
 #include "G4RunManager.hh"
-
 #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/PhysicalConstants.h"
 #include "G4Gamma.hh"
