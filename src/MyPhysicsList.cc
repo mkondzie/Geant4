@@ -28,15 +28,14 @@
 
 MyPhysicsList::MyPhysicsList() : G4VUserPhysicsList()
 {
-	fCutForGamma = 0.7 * mm;
+	fCutForGamma = 0.5 * mm;
 	fCutForElectron = 1000 * km;
 	fCutForPositron = 1000 * km;
-	
+
 	SetVerboseLevel(1);
-	
 }
 
-MyPhysicsList::~MyPhysicsList() { }
+MyPhysicsList::~MyPhysicsList() {}
 
 void MyPhysicsList::ConstructParticle()
 {
@@ -63,52 +62,52 @@ void MyPhysicsList::ConstructProcess()
 
 void MyPhysicsList::ConstructEM()
 {
-	
-	G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
+
+	G4PhysicsListHelper *ph = G4PhysicsListHelper::GetPhysicsListHelper();
 	auto particleIterator = GetParticleIterator();
 	particleIterator->reset();
 
-	while ((*particleIterator)()) {
+	while ((*particleIterator)())
+	{
 
-		G4ParticleDefinition* particle = particleIterator->value();
+		G4ParticleDefinition *particle = particleIterator->value();
 
 		G4String particleName = particle->GetParticleName();
 
-		if (particleName == "gamma") {
+		if (particleName == "gamma")
+		{
 
 			ph->RegisterProcess(new G4PhotoElectricEffect(), particle);
 			ph->RegisterProcess(new G4ComptonScattering(), particle);
 			ph->RegisterProcess(new G4GammaConversion(), particle);
-
 		}
-		
-		else if (particleName == "e-") {
+
+		else if (particleName == "e-")
+		{
 
 			ph->RegisterProcess(new G4eMultipleScattering(), particle);
 			ph->RegisterProcess(new G4eIonisation(), particle);
 			ph->RegisterProcess(new G4eBremsstrahlung(), particle);
-
 		}
-		else if (particleName == "e+") {
+		else if (particleName == "e+")
+		{
 
 			ph->RegisterProcess(new G4eMultipleScattering(), particle);
 			ph->RegisterProcess(new G4eIonisation(), particle);
 			ph->RegisterProcess(new G4eBremsstrahlung(), particle);
 			ph->RegisterProcess(new G4eplusAnnihilation(), particle);
-
 		}
-		
 	}
-
 }
 
 void MyPhysicsList::SetCuts()
 {
-		SetCutValue(fCutForGamma, "gamma");
-		SetCutValue(fCutForElectron, "e-");
-		SetCutValue(fCutForPositron, "e+");
+	SetCutValue(fCutForGamma, "gamma");
+	SetCutValue(fCutForElectron, "e-");
+	SetCutValue(fCutForPositron, "e+");
 
-		if (verboseLevel > 0) DumpCutValuesTable();
+	if (verboseLevel > 0)
+		DumpCutValuesTable();
 }
 
 void MyPhysicsList::SetGammaCut(G4double val)
