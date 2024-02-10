@@ -32,7 +32,7 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
             track->SetTrackStatus(fKillTrackAndSecondaries);
         }
 
-        G4double cosTheta = 1 + CLHEP::electron_mass_c2 * (1 / (preEnergy)-1 / (postEnergy));
+        G4double cosTheta = 1 + CLHEP::electron_mass_c2 * (1 / (preEnergy) - 1 / (postEnergy));
 
         if (cosTheta >= 1 || cosTheta <= -1)
         {
