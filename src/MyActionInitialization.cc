@@ -5,30 +5,28 @@
 #include "MySteppingAction.h"
 #include "MyStackingAction.h"
 
-MyActionInitialization::MyActionInitialization() { }
+MyActionInitialization::MyActionInitialization() {}
 
 void MyActionInitialization::Build() const
 {
   MyPrimaryGenerator *generator = new MyPrimaryGenerator();
   SetUserAction(generator);
 
-  MyRunAction* runAction = new MyRunAction();
+  MyRunAction *runAction = new MyRunAction();
   SetUserAction(runAction);
 
-  MyEventAction* eventAction = new MyEventAction(runAction);
+  MyEventAction *eventAction = new MyEventAction(runAction);
   SetUserAction(eventAction);
 
-  MySteppingAction* steppingAction = new MySteppingAction(eventAction);
+  MySteppingAction *steppingAction = new MySteppingAction(eventAction);
   SetUserAction(steppingAction);
 
-  MyStackingAction* stackingAction = new MyStackingAction();
+  MyStackingAction *stackingAction = new MyStackingAction();
   SetUserAction(stackingAction);
-
 }
-
 
 void MyActionInitialization::BuildForMaster() const
 {
-	MyRunAction* runAction = new MyRunAction;
-	SetUserAction(runAction);
+  MyRunAction *runAction = new MyRunAction;
+  SetUserAction(runAction);
 }
