@@ -28,7 +28,7 @@ std::string formatInExponentialNotation(double value) {
 }
 
 void Geant4() {
-	TFile* rootFile = new TFile("output_0.root", "READ");
+	TFile* rootFile = new TFile("output.root", "READ");
 
 	TH1D* primaries; 
 	TH1D* primaryHits; 
