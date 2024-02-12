@@ -1,7 +1,7 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TH1F.h>
-#include <TH1I.h>
+#include <TH1I.h>        
 #include <TH2D.h>
 #include <TCanvas.h>
 #include "TStyle.h"
@@ -40,17 +40,21 @@ void Geant4() {
 	rootFile->GetObject("CylinderHalfLength", cylinderHalfLengthHist);
 	double cylinderLength = 2 * (cylinderHalfLengthHist->GetSumOfWeights()) / (10 * cylinderHalfLengthHist->GetEntries());
 	//2 is for converting half to full length, dividing by 10 to convert mm to cm, dividing by number of entries (threads)
+	double photonsLeft = primaryHits->GetEntries() + scatteredHits->GetEntries();
+	double meanFreePath = cylinderLength / std::log(primaries->GetSumOfWeights() / photonsLeft);
 
 	std::string sumOfWeightsString = formatInExponentialNotation(primaries->GetSumOfWeights());
 	std::string primaryHitsString = formatInExponentialNotation(primaryHits->GetEntries());
 	std::string scatteredHitsString = formatInExponentialNotation(scatteredHits->GetEntries());
 	std::string cylinderLengthString = formatInExponentialNotation(cylinderLength);
+	std::string meanFreePathString = formatInExponentialNotation(meanFreePath);
 	//////////////////////////////
 	TCanvas* canvas = new TCanvas("canvas", "", 670, 600);
 	canvas->Print("Geant.pdf[");
 	TPaveText* t = new TPaveText(.05, .1, .95, .8);
 	t->AddText("");
 	t->AddText((cylinderLengthString + " cm cylinder").c_str()); 
+	t->AddText(("Mean free path: " + meanFreePathString + " cm").c_str()); 
 	t->AddLine(0, 0.5, 1, 0.5);
 	t->AddText(""); 
 
@@ -64,7 +68,7 @@ void Geant4() {
 	//////////////////////////
 	TTree* scattering;
 	rootFile->GetObject("Scattering", scattering);
-	TH2D* histScatteringXY = new TH2D("", "", 34, -0.55, 0.55, 34, -0.55, 0.55);
+	TH2D* histScatteringXY = new TH2D("", "", 29, -0.55, 0.55, 29, -0.55, 0.55);
 	TH1F* histScatteringZ = new TH1F("", "", 100, 10000 - cylinderLength * 5.1, 10000 + 5.1 * cylinderLength);
 
 	double_t x, y, z, E;
@@ -143,7 +147,9 @@ void Geant4() {
 	Long64_t nEntries = hits->GetEntries();
 	for (Long64_t i = 0; i < nEntries; i++) {
 		hits->GetEntry(i);
+		//profHitsXY->Fill(x, y, (E - 10) * 1e6);
 		profHitsXY->Fill(x, y, (E - primaryEnergy) * 1e6);
+		//profHitsEr->Fill(std::sqrt(x * x + y * y), (E - 10) * 1e6);
 		profHitsEr->Fill(std::sqrt(x * x + y * y), (E - primaryEnergy) * 1e6);
 		histHitsr->Fill(std::sqrt(x * x + y * y));
 	}
