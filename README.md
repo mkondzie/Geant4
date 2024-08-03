@@ -3,3 +3,4 @@ A Geant4-based simulation for the High-Intensity Gamma-Ray Source (HIγS) at Duk
 
 ## Requirements
 Geant4-11.0.2 or later
+ROOT-6.30.04 or later
